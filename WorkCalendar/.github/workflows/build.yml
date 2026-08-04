@@ -4,14 +4,30 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # 1. 将 actions/checkout 从 v4 升级到 v4 (最新版)
       - uses: actions/checkout@v4
+
+      # 2. 设置 JDK 17
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
+
+      # 3. 【关键修复】使用最新的 setup-gradle 并禁用有问题的缓存
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          # 显式指定 Gradle 版本，使用系统 Wrapper
+          gradle-version: wrapper
+          # 禁用本地缓存，以规避 400 错误
+          cache-read-only: true
+
+      # 4. 执行构建
       - name: Build APK
         run: gradle assembleDebug --no-daemon
+
+      # 5. 将 actions/upload-artifact 从 v4 升级到 v4 (最新版)
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
