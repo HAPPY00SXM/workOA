@@ -1,8 +1,6 @@
-text
 name: Build APK
 on: [push, workflow_dispatch]
-name: Build APK
-on: [push, workflow_dispatch]
+jobs:
   build:
     runs-on: ubuntu-latest
     steps:
