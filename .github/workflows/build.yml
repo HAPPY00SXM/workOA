@@ -1,0 +1,19 @@
+name名称: Build APK构建APK
+on: [push, workflow_dispatch]
+jobs:作业:
+  build:构建:
+    runs-on: ubuntu-latest运行环境: ubuntu-latest
+    steps:步骤:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:使用:
+          java-version: '17'          java版本: '17'          java版本: '17'          java版本: '17'          java版本: '17'          java版本: '17'          java版本: '17'          java版本: '17'
+          distribution: 'temurin'          分发: 'temurin'
+      - name: Build APK      - 名称: 构建 APK
+        run: gradle assembleDebug --no-daemon        运行: gradle assembleDebug --no-daemon
+      - name: Upload APK      - 名称: 上传APK
+        uses: actions/upload-artifact@v4        使用: actions/upload-artifact@v4
+        with:使用        使用：:
+          name: WorkCalendar-App          名称: WorkCalendar-App
+          path: app/build/outputs/apk/debug/*.apk          路径: app/build/outputs/apk/debug/*.apk
